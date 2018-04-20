@@ -1,21 +1,16 @@
 {
-  "name": "pixijs",
+  "name": "Pixi_JS_learning_by_WKaa",
+  "author": "Witalij Kaa",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "d": "cross-env THE_CONFIG={\\\"dev\\\":true,\\\"chrome\\\":true} webpack --mode development",
-    "dev": "cross-env THE_CONFIG={\\\"dev\\\":true,\\\"chrome\\\":false} webpack --mode development --watch",
-    "s": "cross-env THE_CONFIG={\\\"dev\\\":true,\\\"chrome\\\":true} webpack-dev-server --open --mode development --watch",
-    "server": "cross-env THE_CONFIG={\\\"dev\\\":true,\\\"chrome\\\":false} webpack-dev-server --open --mode development --watch",
-    "prod": "webpack --mode production"
+    "d": "cross-env THE_CONFIG={\\\"dev\\\":true,\\\"chrome\\\":true} webpack --mode development --hide-modules",
+    "dev": "cross-env THE_CONFIG={\\\"dev\\\":true,\\\"chrome\\\":false} webpack --mode development --hide-modules --watch",
+    "s": "cross-env THE_CONFIG={\\\"dev\\\":true,\\\"chrome\\\":true} webpack-dev-server --open --mode development --hide-modules --watch",
+    "server": "cross-env THE_CONFIG={\\\"dev\\\":true,\\\"chrome\\\":false} webpack-dev-server --open --mode development --hide-modules --watch",
+    "prod": "webpack --mode production --hide-modules"
   },
-  "author": "Witalij Kaa",
   "dependencies": {
-    "vue": "2.5.16",
-    "pixi.js": "4.7.3",
-    "stylus": "0.54.5"
-  },
-  "devDependencies": {
     "cross-env": "5.1.4",
     "webpack": "4.6.0",
     "webpack-cli": "2.0.14",
@@ -25,9 +20,12 @@
     "babel-loader": "7.1.4",
     "babel-core": "6.26.0",
     "babel-preset-env": "1.6.1",
+    "pixi.js": "4.7.3",
+    "vue": "2.5.16",
     "vue-loader": "14.2.2",
     "css-loader": "0.28.11",
     "vue-template-compiler": "2.5.16",
+    "stylus": "0.54.5",
     "stylus-loader": "3.0.2",
     "nib": "1.1.2"
   }

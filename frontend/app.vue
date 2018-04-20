@@ -21,13 +21,18 @@ export default {
             this.pixiApp = new PIXI.Application({width: size, height: size, transparent: false});
             this.$refs['app'].appendChild(this.pixiApp.view);
 
+            this.pixiApp.renderer.view.style.position = "absolute";
+            this.pixiApp.renderer.view.style.display = "block";
             this.pixiApp.renderer.autoResize = true;
 
             window.addEventListener('resize', this.resizePixiHandler);
+            this.resizePixiHandler();
         },
         resizePixiHandler() {
             let size = this.findPixiSize();
             this.pixiApp.renderer.resize(size, size);
+            this.pixiApp.renderer.view.style.top = (window.innerHeight - size) / 2 + 'px';
+            this.pixiApp.renderer.view.style.left = (window.innerWidth - size) / 2 + 'px';
         },
         findPixiSize() {
             let w = window.innerWidth;
