@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
@@ -10,7 +11,24 @@ module.exports = {
         filename: 'js/[name].js',
         path: path.resolve(__dirname, 'web')
     },
-    devServer: { contentBase: './web' }
+    devServer: { contentBase: './web' },
+    module: {
+        rules: [
+            {
+                test: /\.vue$/,
+                loader: 'vue-loader'
+            }
+        ]
+    },
+    plugins: [
+        new webpack.LoaderOptionsPlugin({
+            options: {
+                stylus: {
+                    use: [ require('nib')() ]
+                }
+            }
+        })
+    ]
 };
 
 let theConfig = process.env.THE_CONFIG ? JSON.parse(process.env.THE_CONFIG) : { dev: false, chrome: false};
@@ -36,18 +54,16 @@ else {
 }
 
 if (!theConfig.chrome) {
-    module.exports.module = {
-        rules: [
-            {
-                test: /\.es6$/,
-                exclude: /(node_modules)/,
-                use: {
-                    loader: 'babel-loader',
-                    options: {
-                        presets: ['env'],
-                    }
+    module.exports.module.rules.push(
+        {
+            test: /\.es6$/,
+            exclude: /(node_modules)/,
+            use: {
+                loader: 'babel-loader',
+                options: {
+                    presets: ['env'],
                 }
-            },
-        ]
-    };
+            }
+        }
+    );
 }
