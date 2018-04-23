@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "d": "cross-env THE_CONFIG={\\\"dev\\\":true,\\\"chrome\\\":true} webpack --mode development --hide-modules",
+    "d": "cross-env THE_CONFIG={\\\"dev\\\":true,\\\"chrome\\\":false} webpack --mode development --hide-modules",
     "dev": "cross-env THE_CONFIG={\\\"dev\\\":true,\\\"chrome\\\":false} webpack --mode development --hide-modules --watch",
     "s": "cross-env THE_CONFIG={\\\"dev\\\":true,\\\"chrome\\\":true} webpack-dev-server --open --mode development --hide-modules --watch",
     "server": "cross-env THE_CONFIG={\\\"dev\\\":true,\\\"chrome\\\":false} webpack-dev-server --open --mode development --hide-modules --watch",
