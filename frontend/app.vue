@@ -21,7 +21,7 @@ import uRedKnight from '../recources/sprites/knight/red.png';
 export default {
     name: 'the-app',
     mixins: [ KeybordMixin ],
-    data () { return {
+    data () { return { // гит тест
     }},
     created () {
         this.timeCoefficient = 1;
