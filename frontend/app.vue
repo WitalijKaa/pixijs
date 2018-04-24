@@ -48,14 +48,14 @@ export default {
         initSpritesCreate() {
             let kAlfa = this.pCreateSpriteByImageUrlAndRectangleCut(uRedKnight, [50, 0, 50, 50]);
             kAlfa.position.set(0, 0);
-            let kBeta = this.pCreateSpriteByImageUrlAndRectangleCut(uRedKnight, [50, 0, 50, 50]);
+            let kBeta = this.pCreateSpriteByImageUrlAndRectangleCut(uRedKnight, [200, 0, 50, 50]);
             kBeta.position.set(100, 0);
             this.one.sprite = this.pCreateContainer([kAlfa, kBeta]);
             this.one.sprite.position.set(110, 110);
             this.one.sprite.pivot.x = 50;
             this.pStage.addChild(this.one.sprite);
 
-            this.knight.sprite = this.pCreateSpriteByImageUrlAndRectangleCut(uRedKnight, [0, 0, 50, 50]);
+            this.knight.sprite = this.pCreateAnimByImageUrl(uRedKnight, { w: 50, h: 50, c: 7, x: 0, y: 0 });
             this.pStage.addChild(this.knight.sprite);
             this.knight.sprite.position.set(110, 210);
 
@@ -82,11 +82,24 @@ export default {
             return sprite;
         },
         pCreateSpriteByImageUrlAndRectangleCut(spriteUrl, rectangleArr) {
-            let texture = this.pTextures[spriteUrl];
+            let texture = this.pTextures[spriteUrl].clone();
             texture.frame = this.pCreateRectangleByArray(rectangleArr);
             let sprite = new PIXI.Sprite(texture);
             sprite.anchor.x = 0.5;
             sprite.anchor.y = 0.5;
+            return sprite;
+        },
+        pCreateAnimByImageUrl(spriteUrl, configObj) {
+            let textures = [];
+            for (let c = 0; c < configObj.c; c++) {
+                let texture = this.pTextures[spriteUrl].clone();
+                texture.frame = this.pCreateRectangleByArray([configObj.x + c * configObj.w, configObj.y, configObj.w, configObj.h]);
+                textures.push(texture);
+            }
+            let sprite = new PIXI.extras.AnimatedSprite(textures);
+            sprite.anchor.set(0.5);
+            sprite.animationSpeed = 1 / 6;
+            sprite.play();
             return sprite;
         },
         pCreateContainer(spritesArr) {
