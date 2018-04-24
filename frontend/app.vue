@@ -6,12 +6,14 @@
 <script>
 import KeybordMixin from './mixins/keybord.vue';
 
+import Knight from './mixins/Knight.es6';
+
 import * as PIXI from 'pixi.js';
 
 window.pixiApp = {
     sprites : {
         one: { sprite: null },
-        knight: { sprite: null, sx: 0, sy: 0 }
+        knight: null
     }
 };
 
@@ -55,7 +57,7 @@ export default {
             this.one.sprite.pivot.x = 50;
             this.pStage.addChild(this.one.sprite);
 
-            this.knight.sprite = this.pCreateAnimByImageUrl(uRedKnight, { w: 50, h: 50, c: 7, x: 0, y: 0 });
+            this.knight = new Knight(this.pTextures, { type: 'anim', url: uRedKnight, config: { w: 50, h: 50, c: 7, x: 0, y: 0 }});
             this.pStage.addChild(this.knight.sprite);
             this.knight.sprite.position.set(110, 210);
 
@@ -68,13 +70,9 @@ export default {
             this.one.sprite.rotation += 0.05;
             if (this.one.sprite.rotation > (2 * Math.PI)) { this.one.sprite.rotation -= (2 * Math.PI);}
         },
-        knightMove() {
-            if (!this.knight.sprite) { return; }
-            this.knight.sprite.position.x += this.knight.sx;
-            this.knight.sprite.position.y += this.knight.sy;
-        },
-        unitMoveHorizontally(horz) { this.knight.sx = horz * 2; },
-        unitMoveVertically(vert) { this.knight.sy = vert * 2; },
+        knightMove() { this.knight.moveLogic(); },
+        unitMoveHorizontally(horz) { this.knight.moveHorizontally(horz); },
+        unitMoveVertically(vert) { this.knight.moveVertically(vert); },
         pCreateSpriteByImageUrl(spriteUrl) {
             let sprite = new PIXI.Sprite(PIXI.loader.resources[spriteUrl].texture);
             sprite.anchor.x = 0.5;
@@ -99,7 +97,6 @@ export default {
             let sprite = new PIXI.extras.AnimatedSprite(textures);
             sprite.anchor.set(0.5);
             sprite.animationSpeed = 1 / 6;
-            sprite.play();
             return sprite;
         },
         pCreateContainer(spritesArr) {

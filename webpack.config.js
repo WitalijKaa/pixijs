@@ -5,7 +5,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
     entry: {
-        app: './frontend/app.es6'
+        app: ['babel-polyfill', './frontend/app.es6']
     },
     output: {
         filename: 'js/[name].js',
