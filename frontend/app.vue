@@ -46,11 +46,16 @@ export default {
         },
         gameEmptyLogic() { },
         initSpritesCreate() {
-            this.one.sprite = this.pCreateSpriteByImageUrl(uOne);
-            this.pStage.addChild(this.one.sprite);
+            let kAlfa = this.pCreateSpriteByImageUrlAndRectangleCut(uRedKnight, [50, 0, 50, 50]);
+            kAlfa.position.set(0, 0);
+            let kBeta = this.pCreateSpriteByImageUrlAndRectangleCut(uRedKnight, [50, 0, 50, 50]);
+            kBeta.position.set(100, 0);
+            this.one.sprite = this.pCreateContainer([kAlfa, kBeta]);
             this.one.sprite.position.set(110, 110);
+            this.one.sprite.pivot.x = 50;
+            this.pStage.addChild(this.one.sprite);
 
-            this.knight.sprite = this.pCreateSpriteByImageUrlAndRectangleCut(uRedKnight, [50, 0, 50, 50]);
+            this.knight.sprite = this.pCreateSpriteByImageUrlAndRectangleCut(uRedKnight, [0, 0, 50, 50]);
             this.pStage.addChild(this.knight.sprite);
             this.knight.sprite.position.set(110, 210);
 
@@ -83,6 +88,11 @@ export default {
             sprite.anchor.x = 0.5;
             sprite.anchor.y = 0.5;
             return sprite;
+        },
+        pCreateContainer(spritesArr) {
+            let c = new PIXI.Container();
+            for (let sprite of spritesArr) { c.addChild(sprite); }
+            return c;
         },
         pCreateRectangleByArray(rectangleArr) {
             return new PIXI.Rectangle(rectangleArr[0], rectangleArr[1], rectangleArr[2], rectangleArr[3]);
